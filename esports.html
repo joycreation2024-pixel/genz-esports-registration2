@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GEN-Z Esports | FreeFire Tournament</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0c0e1d, #1a1c2f);
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(0, 100, 255, 0.1) 0%, transparent 25%),
+                radial-gradient(circle at 80% 70%, rgba(255, 0, 200, 0.1) 0%, transparent 25%);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            text-align: center;
+            padding: 40px 0 20px;
+            position: relative;
+            animation: fadeInDown 1s ease;
+        }
+        
+        .logo {
+            font-size: 4.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #ff00cc, #3333ff, #00ccff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+            animation: gradientPulse 3s infinite alternate;
+            text-shadow: 0 0 20px rgba(0, 200, 255, 0.5);
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+        
+        @keyframes gradientPulse {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+        
+        .subtitle {
+            font-size: 1.4rem;
+            color: #aaa;
+            margin-bottom: 40px;
+            text-shadow: 0 0 10px rgba(0, 200, 255, 0.3);
+        }
+        
+        /* Mode Selection */
+        .mode-selector {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 50px 0;
+            flex-wrap: wrap;
+        }
+        
+        .mode-btn {
+            background: rgba(30, 30, 50, 0.7);
+            border: 2px solid #444;
+            border-radius: 15px;
+            color: #aaa;
+            font-size: 1.5rem;
+            font-weight: bold;
+            padding: 25px 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+            min-width: 220px;
+            text-align: center;
+        }
+        
+        .mode-btn i {
+            display: block;
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        
+        .mode-btn::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #ff00cc, #3333ff, #00ccff, #ff00cc);
+            background-size: 400%;
+            z-index: -1;
+            border-radius: 15px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .mode-btn:hover {
+            color: #fff;
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.5);
+        }
+        
+        .mode-btn:hover::before {
+            opacity: 1;
+            animation: neonBorder 3s linear infinite;
+        }
+        
+        @keyframes neonBorder {
+            0% { background-position: 0 0; }
+            100% { background-position: 400% 0; }
+        }
+        
+        .mode-btn.active {
+            color: #fff;
+            transform: translateY(-8px);
+            box-shadow: 0 0 30px rgba(0, 200, 255, 0.8);
+            border-color: #00ccff;
+        }
+        
+        .mode-btn.active::before {
+            opacity: 1;
+            animation: neonBorder 3s linear infinite;
+        }
+        
+        /* Registration Form */
+        .registration-section {
+            background: rgba(20, 22, 40, 0.85);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px auto;
+            max-width: 800px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(100, 100, 255, 0.3);
+            display: none;
+            backdrop-filter: blur(10px);
+        }
+        
+        .registration-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .form-title {
+            text-align: center;
+            margin-bottom: 35px;
+            font-size: 2.2rem;
+            color: #00ccff;
+            text-shadow: 0 0 15px rgba(0, 200, 255, 0.7);
+            position: relative;
+        }
+        
+        .form-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #ff00cc, #00ccff);
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 12px;
+            color: #ccc;
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 15px 20px;
+            border-radius: 10px;
+            border: 1px solid #444;
+            background: rgba(30, 30, 50, 0.6);
+            color: #fff;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #00ccff;
+            box-shadow: 0 0 15px rgba(0, 200, 255, 0.7);
+            color: #0f0;
+        }
+        
+        .form-group input.valid {
+            color: #0f0;
+        }
+        
+        .extra-player {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .extra-player label {
+            margin: 0;
+        }
+        
+        .radio-group {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .radio-group div {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .radio-group input[type="radio"] {
+            width: 20px;
+            height: 20px;
+        }
+        
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(45deg, #1a2a6c, #b21f1f, #1a2a6c);
+            background-size: 200% auto;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: all 0.4s ease;
+            opacity: 0.6;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .submit-btn.ready {
+            background: linear-gradient(45deg, #00c853, #009624, #00c853);
+            background-size: 200% auto;
+            opacity: 1;
+            animation: gradientPulse 2s infinite;
+        }
+        
+        .submit-btn.ready:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 200, 83, 0.6);
+        }
+        
+        /* Admin Panel */
+        .admin-panel-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            display: none;
+        }
+        
+        .admin-panel {
+            background: linear-gradient(135deg, #1a1c2f, #0c0e1d);
+            border-radius: 20px;
+            padding: 40px;
+            width: 90%;
+            max-width: 1100px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 0 60px rgba(0, 200, 255, 0.4);
+            border: 2px solid rgba(255, 50, 50, 0.4);
+            position: relative;
+        }
+        
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid rgba(255, 50, 50, 0.4);
+        }
+        
+        .admin-title {
+            color: #ff3366;
+            font-size: 2.2rem;
+            text-shadow: 0 0 15px rgba(255, 50, 50, 0.7);
+        }
+        
+        .admin-close {
+            background: rgba(255, 50, 50, 0.2);
+            color: #ff3366;
+            border: 2px solid #ff3366;
+            border-radius: 8px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        .admin-close:hover {
+            background: rgba(255, 50, 50, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 50, 50, 0.4);
+        }
+        
+        .registrations-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 1.1rem;
+        }
+        
+        .registrations-table th,
+        .registrations-table td {
+            padding: 15px 20px;
+            text-align: left;
+            border-bottom: 1px solid rgba(100, 100, 255, 0.2);
+        }
+        
+        .registrations-table th {
+            background: rgba(255, 50, 50, 0.15);
+            color: #ff3366;
+            position: sticky;
+            top: 0;
+            font-weight: 600;
+        }
+        
+        .registrations-table tr:hover {
+            background: rgba(50, 50, 100, 0.4);
+        }
+        
+        .registrations-table tr:nth-child(even) {
+            background: rgba(30, 30, 50, 0.4);
+        }
+        
+        /* Admin Login */
+        .admin-login {
+            background: rgba(20, 22, 40, 0.9);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 50px auto;
+            max-width: 500px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(100, 100, 255, 0.3);
+            text-align: center;
+        }
+        
+        .admin-login h2 {
+            color: #ff3366;
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+            text-shadow: 0 0 10px rgba(255, 50, 50, 0.5);
+        }
+        
+        .admin-login input {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 10px;
+            border: 1px solid #444;
+            background: rgba(30, 30, 50, 0.6);
+            color: #fff;
+            font-size: 1.1rem;
+            text-align: center;
+        }
+        
+        .admin-login button {
+            background: linear-gradient(45deg, #ff3366, #b21f1f);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(255, 50, 50, 0.4);
+        }
+        
+        .admin-login button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 50, 50, 0.6);
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 0 30px;
+            color: #777;
+            font-size: 1rem;
+            margin-top: 50px;
+            border-top: 1px solid rgba(100, 100, 255, 0.1);
+        }
+        
+        .music-control {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: rgba(30, 30, 50, 0.9);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 100;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(100, 100, 255, 0.3);
+        }
+        
+        .music-control i {
+            font-size: 1.8rem;
+            color: #00ccff;
+        }
+        
+        .admin-access-btn {
+            position: fixed;
+            bottom: 25px;
+            left: 25px;
+            background: rgba(255, 50, 50, 0.2);
+            color: #ff3366;
+            border: 2px solid #ff3366;
+            border-radius: 10px;
+            padding: 12px 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            font-size: 1.1rem;
+            z-index: 100;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .admin-access-btn:hover {
+            background: rgba(255, 50, 50, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 50, 50, 0.4);
+        }
+        
+        /* Animations */
+        @keyframes pop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .pop-animation {
+            animation: pop 0.3s ease;
+        }
+        
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .mode-btn {
+                padding: 20px 40px;
+                min-width: 180px;
+                font-size: 1.3rem;
+            }
+            
+            .mode-btn i {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 3rem;
+            }
+            
+            .mode-selector {
+                gap: 20px;
+            }
+            
+            .mode-btn {
+                padding: 18px 30px;
+                min-width: 160px;
+                font-size: 1.2rem;
+            }
+            
+            .mode-btn i {
+                font-size: 2rem;
+            }
+            
+            .registration-section, .admin-login {
+                padding: 30px;
+            }
+            
+            .form-title {
+                font-size: 1.8rem;
+            }
+            
+            .registrations-table {
+                font-size: 0.9rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .logo {
+                font-size: 2.5rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .mode-selector {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .mode-btn {
+                width: 100%;
+            }
+            
+            .registration-section, .admin-login {
+                padding: 20px;
+            }
+            
+            .form-group input, 
+            .form-group select {
+                padding: 12px 15px;
+                font-size: 1rem;
+            }
+        }
+        
+        /* Email Confirmation Modal */
+        .email-confirmation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            display: none;
+        }
+        
+        .email-content {
+            background: linear-gradient(135deg, #1a1c2f, #0c0e1d);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 0 40px rgba(0, 200, 255, 0.5);
+            border: 2px solid rgba(0, 200, 255, 0.4);
+            animation: scaleUp 0.5s ease;
+        }
+        
+        @keyframes scaleUp {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        
+        .email-content h2 {
+            color: #00ccff;
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+        
+        .email-content p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: #ccc;
+        }
+        
+        .email-content button {
+            background: linear-gradient(45deg, #00c853, #009624);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+        
+        .email-content button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 200, 83, 0.6);
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Music -->
+    <audio id="bg-music" loop>
+        <source src="https://www.zedge.net/ringtones/e4c14f35-bf7d-43d9-8fd2-e98e56cf450c" type="audio/mpeg">
+    </audio>
+    <audio id="click-sound">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="success-sound">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-unlock-game-notification-253.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="error-sound">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-wrong-answer-fail-notification-946.mp3" type="audio/mpeg">
+    </audio>
+    
+    <div class="container">
+        <header>
+            <h1 class="logo">Welcome to GEN-Z Esports</h1>
+            <p class="subtitle">Register for the FreeFire Tournament and showcase your skills!</p>
+        </header>
+        
+        <div class="mode-selector">
+            <button class="mode-btn" data-mode="solo">
+                <i class="fas fa-user"></i> Solo
+            </button>
+            <button class="mode-btn" data-mode="duo">
+                <i class="fas fa-user-friends"></i> Duo
+            </button>
+            <button class="mode-btn" data-mode="squad">
+                <i class="fas fa-users"></i> Squad
+            </button>
+        </div>
+        
+        <!-- Solo Registration Form -->
+        <div class="registration-section" id="solo-form">
+            <h2 class="form-title">Solo Registration</h2>
+            <form id="solo-registration">
+                <div class="form-group">
+                    <label for="solo-uid">FreeFire UID</label>
+                    <input type="text" id="solo-uid" name="uid" placeholder="Enter your FreeFire UID" required>
+                </div>
+                <div class="form-group">
+                    <label for="solo-email">Gmail</label>
+                    <input type="email" id="solo-email" name="email" placeholder="Enter your Gmail address" required>
+                </div>
+                <div class="form-group">
+                    <label for="solo-mobile">Mobile Number</label>
+                    <input type="tel" id="solo-mobile" name="mobile" placeholder="Enter your mobile number" required>
+                </div>
+                <button type="submit" class="submit-btn" id="solo-submit">Submit Registration</button>
+            </form>
+        </div>
+        
+        <!-- Duo Registration Form -->
+        <div class="registration-section" id="duo-form">
+            <h2 class="form-title">Duo Registration</h2>
+            <form id="duo-registration">
+                <div class="form-group">
+                    <label for="duo-uid">FreeFire UID</label>
+                    <input type="text" id="duo-uid" name="uid" placeholder="Enter your FreeFire UID" required>
+                </div>
+                <div class="form-group">
+                    <label for="duo-email">Gmail</label>
+                    <input type="email" id="duo-email" name="email" placeholder="Enter your Gmail address" required>
+                </div>
+                <div class="form-group">
+                    <label for="duo-team">Team Name</label>
+                    <input type="text" id="duo-team" name="team" placeholder="Enter your team name" required>
+                </div>
+                <div class="form-group">
+                    <label for="duo-mobile">Mobile Number</label>
+                    <input type="tel" id="duo-mobile" name="mobile" placeholder="Enter your mobile number" required>
+                </div>
+                <button type="submit" class="submit-btn" id="duo-submit">Submit Registration</button>
+            </form>
+        </div>
+        
+        <!-- Squad Registration Form -->
+        <div class="registration-section" id="squad-form">
+            <h2 class="form-title">Squad Registration</h2>
+            <form id="squad-registration">
+                <div class="form-group">
+                    <label for="squad-uid">FreeFire UID</label>
+                    <input type="text" id="squad-uid" name="uid" placeholder="Enter your FreeFire UID" required>
+                </div>
+                <div class="form-group">
+                    <label for="squad-email">Gmail</label>
+                    <input type="email" id="squad-email" name="email" placeholder="Enter your Gmail address" required>
+                </div>
+                <div class="form-group">
+                    <label for="squad-team">Team Name</label>
+                    <input type="text" id="squad-team" name="team" placeholder="Enter your team name" required>
+                </div>
+                <div class="form-group">
+                    <label>Extra Player</label>
+                    <div class="radio-group">
+                        <div>
+                            <input type="radio" id="extra-yes" name="extra-player" value="yes" required>
+                            <label for="extra-yes">Yes</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="extra-no" name="extra-player" value="no" required>
+                            <label for="extra-no">No</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="squad-mobile">Mobile Number</label>
+                    <input type="tel" id="squad-mobile" name="mobile" placeholder="Enter your mobile number" required>
+                </div>
+                <button type="submit" class="submit-btn" id="squad-submit">Submit Registration</button>
+            </form>
+        </div>
+        
+        <!-- Admin Login -->
+        <div class="admin-login">
+            <h2>Admin Access</h2>
+            <input type="password" id="admin-password" placeholder="Enter admin password">
+            <button id="admin-login-btn">Access Admin Panel</button>
+        </div>
+        
+        <footer>
+            <p>&copy; 2023 GEN-Z Esports. All rights reserved.</p>
+            <p>This website is for tournament registration purposes only.</p>
+        </footer>
+    </div>
+    
+    <!-- Admin Panel Overlay -->
+    <div class="admin-panel-container" id="admin-panel-container">
+        <div class="admin-panel">
+            <div class="admin-header">
+                <h3 class="admin-title">Admin Panel - Player Registrations</h3>
+                <button class="admin-close" id="admin-close">
+                    <i class="fas fa-times"></i> Close
+                </button>
+            </div>
+            <div class="table-container">
+                <table class="registrations-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Mode</th>
+                            <th>Player UID</th>
+                            <th>Email</th>
+                            <th>Team Name</th>
+                            <th>Extra Player</th>
+                            <th>Mobile</th>
+                            <th>Timestamp</th>
+                        </tr>
+                    </thead>
+                    <tbody id="registrations-list">
+                        <!-- Registrations will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Email Confirmation Overlay -->
+    <div class="email-confirmation" id="email-confirmation">
+        <div class="email-content">
+            <h2><i class="fas fa-envelope"></i> Email Sent!</h2>
+            <p>A confirmation email has been sent to:</p>
+            <p id="sent-email" style="font-weight: bold; color: #00ccff; font-size: 1.4rem; margin: 15px 0;"></p>
+            <p>with the message: <br><span style="color: #0f0; font-weight: bold;">"You Have Registered in Gen-z Esports"</span></p>
+            <button id="email-ok-btn">OK</button>
+        </div>
+    </div>
+    
+    <div class="music-control" id="music-control">
+        <i class="fas fa-play"></i>
+    </div>
+    
+    <button class="admin-access-btn" id="admin-access-btn">
+        <i class="fas fa-lock"></i> Admin Access
+    </button>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM Elements
+            const modeButtons = document.querySelectorAll('.mode-btn');
+            const registrationSections = document.querySelectorAll('.registration-section');
+            const submitButtons = document.querySelectorAll('.submit-btn');
+            const adminPanelContainer = document.getElementById('admin-panel-container');
+            const adminClose = document.getElementById('admin-close');
+            const registrationsList = document.getElementById('registrations-list');
+            const musicControl = document.getElementById('music-control');
+            const bgMusic = document.getElementById('bg-music');
+            const clickSound = document.getElementById('click-sound');
+            const successSound = document.getElementById('success-sound');
+            const errorSound = document.getElementById('error-sound');
+            const adminLoginBtn = document.getElementById('admin-login-btn');
+            const adminPassword = document.getElementById('admin-password');
+            const adminAccessBtn = document.getElementById('admin-access-btn');
+            const emailConfirmation = document.getElementById('email-confirmation');
+            const sentEmail = document.getElementById('sent-email');
+            const emailOkBtn = document.getElementById('email-ok-btn');
+            
+            // Form input elements
+            const formInputs = document.querySelectorAll('input, select');
+            
+            // Initialize music state
+            let musicPlaying = false;
+            
+            // Store registrations
+            let registrations = JSON.parse(localStorage.getItem('registrations')) || [];
+            let nextId = registrations.length > 0 ? Math.max(...registrations.map(r => r.id)) + 1 : 1;
+            
+            // Play sound effect
+            function playSound(sound) {
+                sound.currentTime = 0;
+                sound.play().catch(e => console.log("Sound play prevented by browser policy"));
+            }
+            
+            // Show registration form based on selected mode
+            function showRegistrationForm(mode) {
+                // Hide all forms
+                registrationSections.forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                // Show selected form
+                document.getElementById(`${mode}-form`).classList.add('active');
+                
+                // Highlight selected button
+                modeButtons.forEach(button => {
+                    if (button.dataset.mode === mode) {
+                        button.classList.add('active');
+                        button.classList.add('pop-animation');
+                        setTimeout(() => button.classList.remove('pop-animation'), 300);
+                    } else {
+                        button.classList.remove('active');
+                    }
+                });
+                
+                playSound(clickSound);
+            }
+            
+            // Form validation
+            function validateForm(form) {
+                let valid = true;
+                const inputs = form.querySelectorAll('input, select');
+                
+                inputs.forEach(input => {
+                    if (input.required && !input.value.trim()) {
+                        valid = false;
+                    }
+                });
+                
+                return valid;
+            }
+            
+            // Update submit button state
+            function updateSubmitButtonState(form, button) {
+                if (validateForm(form)) {
+                    button.classList.add('ready');
+                } else {
+                    button.classList.remove('ready');
+                }
+            }
+            
+            // Simulate sending confirmation email
+            function sendConfirmationEmail(email) {
+                // Show the email confirmation modal
+                sentEmail.textContent = email;
+                emailConfirmation.style.display = 'flex';
+                
+                // Log to console (in a real app, this would send an actual email)
+                console.log(`Email sent to ${email} with message: "You Have Registered in Gen-z Esports"`);
+            }
+            
+            // Handle form submission
+            function handleFormSubmit(e, mode) {
+                e.preventDefault();
+                
+                const form = e.target;
+                const formData = new FormData(form);
+                const email = formData.get('email');
+                
+                // Create registration data
+                const registration = {
+                    id: nextId++,
+                    mode: mode.charAt(0).toUpperCase() + mode.slice(1),
+                    uid: formData.get('uid') || '',
+                    email: email,
+                    team: formData.get('team') || '',
+                    mobile: formData.get('mobile') || '',
+                    extra: mode === 'squad' ? formData.get('extra-player') : 'N/A',
+                    timestamp: new Date().toLocaleString()
+                };
+                
+                // Add to registrations
+                registrations.push(registration);
+                localStorage.setItem('registrations', JSON.stringify(registrations));
+                
+                // Show success notification
+                playSound(successSound);
+                
+                // Send confirmation email
+                sendConfirmationEmail(email);
+                
+                // Reset form
+                form.reset();
+                updateSubmitButtonState(form, form.querySelector('.submit-btn'));
+                
+                // Update admin panel
+                updateAdminPanel();
+            }
+            
+            // Update admin panel
+            function updateAdminPanel() {
+                registrationsList.innerHTML = '';
+                
+                if (registrations.length === 0) {
+                    registrationsList.innerHTML = '<tr><td colspan="8" style="text-align:center;">No registrations yet</td></tr>';
+                    return;
+                }
+                
+                registrations.forEach(reg => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${reg.id}</td>
+                        <td>${reg.mode}</td>
+                        <td>${reg.uid}</td>
+                        <td>${reg.email}</td>
+                        <td>${reg.team || 'N/A'}</td>
+                        <td>${reg.extra}</td>
+                        <td>${reg.mobile}</td>
+                        <td>${reg.timestamp}</td>
+                    `;
+                    registrationsList.appendChild(row);
+                });
+            }
+            
+            // Check admin password
+            function checkAdminPassword() {
+                const password = adminPassword.value.trim();
+                if (password === "genzesports") {
+                    adminPanelContainer.style.display = 'flex';
+                    playSound(successSound);
+                    updateAdminPanel();
+                } else {
+                    playSound(errorSound);
+                    alert("Incorrect password! Please try again.");
+                    adminPassword.value = '';
+                    adminPassword.focus();
+                }
+            }
+            
+            // Event Listeners
+            
+            // Mode selection buttons
+            modeButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    showRegistrationForm(button.dataset.mode);
+                });
+            });
+            
+            // Form input changes
+            formInputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    const form = this.closest('form');
+                    const submitBtn = form.querySelector('.submit-btn');
+                    
+                    // Change text color to green when typing
+                    if (this.value.trim()) {
+                        this.classList.add('valid');
+                    } else {
+                        this.classList.remove('valid');
+                    }
+                    
+                    updateSubmitButtonState(form, submitBtn);
+                });
+            });
+            
+            // Form submissions
+            document.getElementById('solo-registration').addEventListener('submit', (e) => handleFormSubmit(e, 'solo'));
+            document.getElementById('duo-registration').addEventListener('submit', (e) => handleFormSubmit(e, 'duo'));
+            document.getElementById('squad-registration').addEventListener('submit', (e) => handleFormSubmit(e, 'squad'));
+            
+            // Admin panel close
+            adminClose.addEventListener('click', () => {
+                adminPanelContainer.style.display = 'none';
+                playSound(clickSound);
+            });
+            
+            // Admin login
+            adminLoginBtn.addEventListener('click', checkAdminPassword);
+            adminPassword.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    checkAdminPassword();
+                }
+            });
+            
+            // Admin access button
+            adminAccessBtn.addEventListener('click', () => {
+                adminPassword.focus();
+                window.scrollTo(0, document.body.scrollHeight);
+                playSound(clickSound);
+            });
+            
+            // Music control
+            musicControl.addEventListener('click', () => {
+                if (musicPlaying) {
+                    bgMusic.pause();
+                    musicControl.innerHTML = '<i class="fas fa-play"></i>';
+                } else {
+                    bgMusic.play().catch(e => console.log("Autoplay prevented by browser policy"));
+                    musicControl.innerHTML = '<i class="fas fa-pause"></i>';
+                }
+                musicPlaying = !musicPlaying;
+                playSound(clickSound);
+            });
+            
+            // Email confirmation OK button
+            emailOkBtn.addEventListener('click', () => {
+                emailConfirmation.style.display = 'none';
+                playSound(clickSound);
+            });
+            
+            // Play music when page loads
+            window.addEventListener('load', function() {
+                // Try to play music automatically
+                bgMusic.play().catch(e => {
+                    console.log("Autoplay prevented. Music will start after user interaction.");
+                });
+                
+                // Set music control to pause icon
+                musicControl.innerHTML = '<i class="fas fa-pause"></i>';
+                musicPlaying = true;
+            });
+            
+            // Initialize with Solo form visible
+            showRegistrationForm('solo');
+            
+            // Initialize admin panel
+            updateAdminPanel();
+        });
+    </script>
+</body>
+</html>
