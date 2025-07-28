@@ -36,7 +36,7 @@ const App = () => {
     // Here you’ll add Firebase + email backend logic
   };
 
-  return (
+  return 
     <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center">
       <h1 className="text-4xl font-bold neon-text mb-6">
         Welcome to GEN-Z Esports
@@ -117,7 +117,7 @@ const App = () => {
         </motion.form>
       )}
     </div>
-  );
+  ;
 };
 
 export default App;
